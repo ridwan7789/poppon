@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
 import PopponSvg from "@/components/PopponSvg";
+import CursorTrail from "@/components/CursorTrail";
 import bannerImg from "@/assets/banner.jpeg";
 import logoImg from "@/assets/logopoppon.jpeg";
 import playgroundImg from "@/assets/playground.jpeg";
@@ -36,6 +37,13 @@ const Reveal = ({ children, className = "" }: { children: ReactNode; className?:
 const Index = () => {
   const [copied, setCopied] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(CONTRACT_ADDRESS);
@@ -45,6 +53,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <CursorTrail />
       {/* Subtle watermark background */}
       <div
         className="pointer-events-none fixed inset-0 z-0"
@@ -61,6 +70,7 @@ const Index = () => {
             className="animate-poppon-float cursor-pointer"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            style={{ transform: `translateY(${scrollY * -0.15}px)` }}
           >
             <PopponSvg />
           </div>
