@@ -6,7 +6,7 @@ import logoImg from "@/assets/logopoppon.jpeg";
 import playgroundImg from "@/assets/playground.jpeg";
 import { Copy, Check } from "lucide-react";
 
-const CONTRACT_ADDRESS = "Solllllllllllllllllllllllllllllllllllllllllllllll";
+const CONTRACT_ADDRESS = "ECGAMkARZdEkSAb9dvkDoRn3QVNo8YnsmDDCnfHTpump";
 
 const Reveal = ({ children, className = "" }: { children: ReactNode; className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
